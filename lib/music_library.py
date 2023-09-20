@@ -9,9 +9,16 @@ class MusicLibrary:
         # track is an instance of Track
         # Track gets added to the library
         # Returns nothing
-        self.tracks.append(track)
+        if hasattr(track, "title") and hasattr(track, "artist"):
+            if isinstance(track.title, str) and isinstance(track.artist, str):
+                self.tracks.append(track)
+                return
+        raise Exception("Cannot add non-track object to library")
+
+        
 
     def search(self, keyword):
         # keyword is a string
         # Returns a list of instances of track that match the keyword
-        pass
+        return [track for track in self.tracks if track.matches(keyword)]
+ 
